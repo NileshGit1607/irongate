@@ -58,14 +58,14 @@ jobs: # a collection of steps
       - image: circleci/node:4.8.2
 
     steps: 
-      - run: echo "Job Seeker Api Test"
+      - run: echo "Deploy to Staging"
 
 workflows:
   version: 2
   development_workflow:
     jobs:
       - build
-      - Deploy:
+      - Deploy
           requires:
             - build
       - Employer Api Test
