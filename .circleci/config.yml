@@ -18,17 +18,18 @@ jobs: # a collection of steps
 
   Run Test: # runs not using Workflows must have a `build` job as entry point
     
-    working_directory: ~/circleci-working-directory # directory where steps will run
-    
+    working_directory: ~/circleci-working-directory 
     steps: # a collection of executable commands
-	- run: echo "Run Api test" 
-     
+
+      - checkout # check out source code to working directory
+      
+      - run: echo "Run Api Test"
 
 workflows:
   version: 2
-  workflow:
+  build_workflow:
     jobs:
-    - build
-    - Run Test
-    	requires:
-	  - build
+      - build
+      - Run Test:
+          requires:
+            - build
