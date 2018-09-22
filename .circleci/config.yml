@@ -1,6 +1,6 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
-  build 1: # runs not using Workflows must have a `build` job as entry point
+  build: # runs not using Workflows must have a `build` job as entry point
     
     working_directory: ~/circleci-working-directory # directory where steps will run
 
@@ -16,8 +16,19 @@ jobs: # a collection of steps
       - store_artifacts: # store the war as an artifact
           path: irongatewaycontroller/target/irongatewaycontroller-1.0-SNAPSHOT.war
 
+  Run Test: # runs not using Workflows must have a `build` job as entry point
+    
+    working_directory: ~/circleci-working-directory # directory where steps will run
+    
+    steps: # a collection of executable commands
+	- run: echo "Run Api test" 
+     
+
 workflows:
   version: 2
   workflow:
     jobs:
-    - build 1
+    - build
+    - Run Test
+    	requires:
+	  - build
