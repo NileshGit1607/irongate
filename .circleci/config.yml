@@ -16,21 +16,65 @@ jobs: # a collection of steps
       - store_artifacts: # store the war as an artifact
           path: irongatewaycontroller/target/irongatewaycontroller-1.0-SNAPSHOT.war
 
-  Run Test: # runs not using Workflows must have a `build` job as entry point
+  Deploy: 
     
     working_directory: ~/circleci-working-directory 
 
-    docker: # run the steps with Docker
+    docker:
+
       - image: circleci/node:4.8.2
 
     steps: 
       - run: echo "Run Api Test"
 
+  Employer Api Test: 
+    
+    working_directory: ~/circleci-working-directory 
+
+    docker:
+
+      - image: circleci/node:4.8.2
+
+    steps: 
+      - run: echo "Employer Api Test"
+  Job Seeker Api Test: 
+    
+    working_directory: ~/circleci-working-directory 
+
+    docker:
+
+      - image: circleci/node:4.8.2
+
+    steps: 
+      - run: echo "Job Seeker Api Test"
+
+  Deploy to Staging: 
+    
+    working_directory: ~/circleci-working-directory 
+
+    docker:
+
+      - image: circleci/node:4.8.2
+
+    steps: 
+      - run: echo "Job Seeker Api Test"
+
 workflows:
   version: 2
-  build_workflow:
+  development_workflow:
     jobs:
       - build
-      - Run Test:
+      - Deploy:
           requires:
             - build
+      - Employer Api Test
+          requires:
+            - Deploy
+      - Job Seeker Api Test
+          requires:
+            - Deploy
+      - Deploy to Staging:
+          requires:
+            - Employer Api Test
+            - Job Seeker Api Test
+
