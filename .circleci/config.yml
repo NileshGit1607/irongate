@@ -37,6 +37,7 @@ jobs: # a collection of steps
 
     steps: 
       - run: echo "Employer Api Test"
+
   Job Seeker Api Test: 
     
     working_directory: ~/circleci-working-directory 
@@ -73,7 +74,7 @@ workflows:
       - Job Seeker Api Test
           requires:
             - Deploy
-      - Deploy to Staging:
+      - Deploy to Staging
           requires:
             - Employer Api Test
             - Job Seeker Api Test
