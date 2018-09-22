@@ -65,16 +65,16 @@ workflows:
   development_workflow:
     jobs:
       - build
-      - Deploy
+      - Deploy:
           requires:
             - build
-      - Employer Api Test
+      - Employer Api Test:
           requires:
             - Deploy
-      - Job Seeker Api Test
+      - Job Seeker Api Test:
           requires:
             - Deploy
-      - Deploy to Staging
+      - Deploy to Staging:
           requires:
             - Employer Api Test
             - Job Seeker Api Test
